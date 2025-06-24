@@ -49,12 +49,12 @@ const BookingPage = () => {
   const isFormValid = selectedDate && selectedTime && formData.name && formData.email;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#FFF8F3] via-[#FFEFE6] to-[#FFF0E6]">
+    <div className="min-h-screen" style={{ background: 'linear-gradient(135deg, #FFF9F5 0%, #FFEEE0 50%, #FFF0E6 100%)' }}>
       {/* Cozy Background */}
       <div className="fixed inset-0 -z-10">
-        <div className="absolute top-1/4 right-1/4 w-64 h-64 peach-gradient organic-blob opacity-25 gentle-float"></div>
-        <div className="absolute bottom-1/4 left-1/4 w-80 h-80 soft-gradient organic-blob-alt opacity-20"></div>
-        <div className="absolute top-10 right-10 w-40 h-40 cozy-gradient organic-blob opacity-30"></div>
+        <div className="absolute top-1/4 right-1/4 w-64 h-64 peach-gradient organic-blob opacity-15 gentle-float"></div>
+        <div className="absolute bottom-1/4 left-1/4 w-80 h-80 soft-gradient organic-blob-alt opacity-10"></div>
+        <div className="absolute top-10 right-10 w-40 h-40 cozy-gradient organic-blob opacity-20"></div>
       </div>
 
       {/* Header */}
@@ -74,7 +74,7 @@ const BookingPage = () => {
           
           <Button
             variant="outline"
-            className="flex items-center space-x-2 hover:bg-[rgba(255,138,101,0.1)] border-primary/40 text-muted rounded-2xl shadow-soft"
+            className="flex items-center space-x-2 hover:bg-secondary hover:text-white border-primary text-warm-dark-brown rounded-2xl shadow-soft transition-all duration-300"
             onClick={() => navigate('/')}
           >
             <Home className="w-4 h-4" />
@@ -92,11 +92,11 @@ const BookingPage = () => {
             transition={{ duration: 0.8 }}
             className="text-center mb-12"
           >
-            <h1 className="text-4xl md:text-5xl font-serif font-semibold mb-4">
+            <h1 className="text-4xl md:text-5xl font-serif font-semibold mb-4 text-warm-dark-brown">
               <span className="text-gradient">Book Your</span>{' '}
-              <span className="text-muted">Cozy Moment</span>
+              <span className="text-warm-brown">Cozy Moment</span>
             </h1>
-            <p className="text-lg text-muted/80 max-w-2xl mx-auto font-medium">
+            <p className="text-lg text-warm-brown max-w-2xl mx-auto font-medium">
               Choose a time that feels right for you. Every appointment is a chance to connect warmly.
             </p>
           </motion.div>
@@ -108,10 +108,10 @@ const BookingPage = () => {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              <Card className="border-0 shadow-warm bg-white/80 backdrop-blur-sm rounded-3xl overflow-hidden">
+              <Card className="border-0 shadow-warm bg-white/95 backdrop-blur-sm rounded-3xl overflow-hidden">
                 <CardHeader className="pb-6">
                   <div className="flex items-center justify-between">
-                    <CardTitle className="text-2xl font-serif text-muted">
+                    <CardTitle className="text-2xl font-serif text-warm-dark-brown">
                       {format(currentDate, 'MMMM yyyy')}
                     </CardTitle>
                     <div className="flex space-x-2">
@@ -119,7 +119,7 @@ const BookingPage = () => {
                         variant="outline"
                         size="sm"
                         onClick={() => setCurrentDate(subMonths(currentDate, 1))}
-                        className="border-secondary/40 text-secondary hover:bg-secondary/10 rounded-xl"
+                        className="border-secondary text-warm-brown hover:bg-secondary hover:text-white rounded-xl transition-all"
                       >
                         <ChevronLeft className="w-4 h-4" />
                       </Button>
@@ -127,7 +127,7 @@ const BookingPage = () => {
                         variant="outline"
                         size="sm"
                         onClick={() => setCurrentDate(addMonths(currentDate, 1))}
-                        className="border-secondary/40 text-secondary hover:bg-secondary/10 rounded-xl"
+                        className="border-secondary text-warm-brown hover:bg-secondary hover:text-white rounded-xl transition-all"
                       >
                         <ChevronRight className="w-4 h-4" />
                       </Button>
@@ -137,7 +137,7 @@ const BookingPage = () => {
                 <CardContent>
                   <div className="grid grid-cols-7 gap-2 mb-4">
                     {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
-                      <div key={day} className="text-center text-sm font-medium text-muted/60 py-2">
+                      <div key={day} className="text-center text-sm font-medium text-warm-brown py-2">
                         {day}
                       </div>
                     ))}
@@ -154,8 +154,8 @@ const BookingPage = () => {
                           ${isToday(day) 
                             ? 'bg-primary text-white shadow-cozy cozy-glow' 
                             : selectedDate && isSameDay(day, selectedDate)
-                            ? 'bg-accent text-white shadow-soft'
-                            : 'hover:bg-secondary/20 text-muted hover:scale-105'
+                            ? 'bg-accent text-warm-dark-brown shadow-soft'
+                            : 'hover:bg-secondary/30 text-warm-dark-brown hover:scale-105 hover:shadow-soft'
                           }
                         `}
                       >
@@ -181,9 +181,9 @@ const BookingPage = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6 }}
                 >
-                  <Card className="border-0 shadow-warm bg-white/80 backdrop-blur-sm rounded-3xl">
+                  <Card className="border-0 shadow-warm bg-white/95 backdrop-blur-sm rounded-3xl">
                     <CardHeader>
-                      <CardTitle className="flex items-center space-x-2 text-muted font-serif">
+                      <CardTitle className="flex items-center space-x-2 text-warm-dark-brown font-serif">
                         <Clock className="w-5 h-5 text-primary" />
                         <span>Available Times</span>
                       </CardTitle>
@@ -200,7 +200,7 @@ const BookingPage = () => {
                               p-4 rounded-2xl transition-all duration-200 font-medium
                               ${selectedTime === time
                                 ? 'cozy-gradient text-white shadow-cozy'
-                                : 'bg-secondary/10 text-muted hover:bg-secondary/20 border border-secondary/20'
+                                : 'bg-secondary/20 text-warm-dark-brown hover:bg-secondary/40 border border-secondary/30 hover:shadow-soft'
                               }
                             `}
                           >
@@ -220,9 +220,9 @@ const BookingPage = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6 }}
                 >
-                  <Card className="border-0 shadow-warm bg-white/80 backdrop-blur-sm rounded-3xl">
+                  <Card className="border-0 shadow-warm bg-white/95 backdrop-blur-sm rounded-3xl">
                     <CardHeader>
-                      <CardTitle className="flex items-center space-x-2 text-muted font-serif">
+                      <CardTitle className="flex items-center space-x-2 text-warm-dark-brown font-serif">
                         <User className="w-5 h-5 text-primary" />
                         <span>Your Cozy Details</span>
                       </CardTitle>
@@ -230,19 +230,19 @@ const BookingPage = () => {
                     <CardContent>
                       <form onSubmit={handleSubmit} className="space-y-6">
                         <div className="space-y-2">
-                          <Label htmlFor="name" className="text-muted font-medium">Full Name</Label>
+                          <Label htmlFor="name" className="text-warm-dark-brown font-medium">Full Name</Label>
                           <Input
                             id="name"
                             value={formData.name}
                             onChange={(e) => setFormData({...formData, name: e.target.value})}
                             placeholder="Your wonderful name"
-                            className="rounded-2xl border-secondary/30 focus:border-primary bg-white/80 py-3"
+                            className="rounded-2xl border-secondary/50 focus:border-primary bg-white py-3 text-warm-dark-brown placeholder:text-warm-brown/60"
                             required
                           />
                         </div>
                         
                         <div className="space-y-2">
-                          <Label htmlFor="email" className="text-muted font-medium flex items-center space-x-2">
+                          <Label htmlFor="email" className="text-warm-dark-brown font-medium flex items-center space-x-2">
                             <Mail className="w-4 h-4" />
                             <span>Email Address</span>
                           </Label>
@@ -252,13 +252,13 @@ const BookingPage = () => {
                             value={formData.email}
                             onChange={(e) => setFormData({...formData, email: e.target.value})}
                             placeholder="your@email.com"
-                            className="rounded-2xl border-secondary/30 focus:border-primary bg-white/80 py-3"
+                            className="rounded-2xl border-secondary/50 focus:border-primary bg-white py-3 text-warm-dark-brown placeholder:text-warm-brown/60"
                             required
                           />
                         </div>
                         
                         <div className="space-y-2">
-                          <Label htmlFor="message" className="text-muted font-medium flex items-center space-x-2">
+                          <Label htmlFor="message" className="text-warm-dark-brown font-medium flex items-center space-x-2">
                             <MessageSquare className="w-4 h-4" />
                             <span>Warm Message (Optional)</span>
                           </Label>
@@ -267,7 +267,7 @@ const BookingPage = () => {
                             value={formData.message}
                             onChange={(e) => setFormData({...formData, message: e.target.value})}
                             placeholder="Share what brings you joy or what you'd like to discuss..."
-                            className="rounded-2xl border-secondary/30 focus:border-primary bg-white/80 min-h-[100px]"
+                            className="rounded-2xl border-secondary/50 focus:border-primary bg-white min-h-[100px] text-warm-dark-brown placeholder:text-warm-brown/60"
                           />
                         </div>
 
@@ -278,7 +278,7 @@ const BookingPage = () => {
                             w-full py-6 text-lg rounded-3xl font-medium transition-all duration-300
                             ${isFormValid
                               ? 'cozy-gradient text-white shadow-cozy hover:shadow-2xl transform hover:scale-[1.02] cozy-glow'
-                              : 'bg-muted/20 text-muted/50 cursor-not-allowed'
+                              : 'bg-warm-brown/20 text-warm-brown/50 cursor-not-allowed'
                             }
                           `}
                         >

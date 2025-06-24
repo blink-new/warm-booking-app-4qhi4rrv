@@ -34,7 +34,7 @@ const ConfirmationPage = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-[#FFF8F3] via-[#FFEFE6] to-[#FFF0E6] flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #FFF9F5 0%, #FFEEE0 50%, #FFF0E6 100%)' }}>
         <motion.div
           animate={{ rotate: 360 }}
           transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
@@ -49,12 +49,12 @@ const ConfirmationPage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#FFF8F3] via-[#FFEFE6] to-[#FFF0E6]">
+    <div className="min-h-screen" style={{ background: 'linear-gradient(135deg, #FFF9F5 0%, #FFEEE0 50%, #FFF0E6 100%)' }}>
       {/* Cozy Background */}
       <div className="fixed inset-0 -z-10">
-        <div className="absolute top-1/4 right-1/4 w-64 h-64 soft-gradient organic-blob opacity-20 gentle-float"></div>
-        <div className="absolute bottom-1/4 left-1/4 w-80 h-80 peach-gradient organic-blob-alt opacity-25"></div>
-        <div className="absolute top-10 left-10 w-40 h-40 cozy-gradient organic-blob opacity-30"></div>
+        <div className="absolute top-1/4 right-1/4 w-64 h-64 soft-gradient organic-blob opacity-15 gentle-float"></div>
+        <div className="absolute bottom-1/4 left-1/4 w-80 h-80 peach-gradient organic-blob-alt opacity-10"></div>
+        <div className="absolute top-10 left-10 w-40 h-40 cozy-gradient organic-blob opacity-20"></div>
       </div>
 
       {/* Header */}
@@ -74,7 +74,7 @@ const ConfirmationPage = () => {
           
           <Button
             variant="outline"
-            className="flex items-center space-x-2 hover:bg-[rgba(255,138,101,0.1)] border-primary/40 text-muted rounded-2xl shadow-soft"
+            className="flex items-center space-x-2 hover:bg-secondary hover:text-white border-primary text-warm-dark-brown rounded-2xl shadow-soft transition-all duration-300"
             onClick={() => navigate('/')}
           >
             <Home className="w-4 h-4" />
@@ -101,10 +101,10 @@ const ConfirmationPage = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="text-4xl md:text-5xl font-serif font-semibold mb-4"
+              className="text-4xl md:text-5xl font-serif font-semibold mb-4 text-warm-dark-brown"
             >
               <span className="text-gradient">Your Cozy</span>{' '}
-              <span className="text-muted">Moment</span>{' '}
+              <span className="text-warm-brown">Moment</span>{' '}
               <span className="text-gradient">is Booked!</span>
             </motion.h1>
             
@@ -112,9 +112,9 @@ const ConfirmationPage = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6, delay: 0.6 }}
-              className="flex items-center justify-center space-x-2 text-lg text-muted/80 font-medium"
+              className="flex items-center justify-center space-x-2 text-lg text-warm-brown font-medium"
             >
-              <Heart className="w-5 h-5 text-accent" />
+              <Heart className="w-5 h-5 text-primary" />
               <span>We can't wait to connect with you warmly</span>
             </motion.div>
           </motion.div>
@@ -126,63 +126,63 @@ const ConfirmationPage = () => {
             transition={{ duration: 0.6, delay: 0.6 }}
             className="max-w-2xl mx-auto"
           >
-            <Card className="border-0 shadow-warm bg-white/80 backdrop-blur-sm rounded-3xl overflow-hidden">
-              <CardHeader className="pb-6 bg-gradient-to-r from-accent/10 to-secondary/10">
-                <CardTitle className="text-2xl text-center font-serif text-muted">Your Cozy Details</CardTitle>
+            <Card className="border-0 shadow-warm bg-white/95 backdrop-blur-sm rounded-3xl overflow-hidden">
+              <CardHeader className="pb-6" style={{ background: 'linear-gradient(90deg, rgba(255,182,193,0.15) 0%, rgba(255,159,122,0.15) 100%)' }}>
+                <CardTitle className="text-2xl text-center font-serif text-warm-dark-brown">Your Cozy Details</CardTitle>
               </CardHeader>
               <CardContent className="space-y-6 p-8">
                 <div className="grid md:grid-cols-2 gap-6">
                   <div className="space-y-4">
-                    <div className="flex items-center space-x-4 p-5 bg-[rgba(255,184,148,0.1)] rounded-2xl border border-secondary/20">
+                    <div className="flex items-center space-x-4 p-5 rounded-2xl border border-secondary/30" style={{ backgroundColor: 'rgba(255,159,122,0.15)' }}>
                       <div className="w-12 h-12 peach-gradient rounded-2xl flex items-center justify-center shadow-soft">
                         <Calendar className="w-6 h-6 text-white" />
                       </div>
                       <div>
-                        <div className="font-semibold text-muted">Date</div>
-                        <div className="text-sm text-muted/70 font-medium">
+                        <div className="font-semibold text-warm-dark-brown">Date</div>
+                        <div className="text-sm text-warm-brown font-medium">
                           {format(new Date(booking.date), 'EEEE, MMMM d, yyyy')}
                         </div>
                       </div>
                     </div>
                     
-                    <div className="flex items-center space-x-4 p-5 bg-[rgba(248,187,217,0.1)] rounded-2xl border border-accent/20">
+                    <div className="flex items-center space-x-4 p-5 rounded-2xl border border-accent/30" style={{ backgroundColor: 'rgba(255,182,193,0.15)' }}>
                       <div className="w-12 h-12 soft-gradient rounded-2xl flex items-center justify-center shadow-soft">
                         <Clock className="w-6 h-6 text-white" />
                       </div>
                       <div>
-                        <div className="font-semibold text-muted">Time</div>
-                        <div className="text-sm text-muted/70 font-medium">{booking.time}</div>
+                        <div className="font-semibold text-warm-dark-brown">Time</div>
+                        <div className="text-sm text-warm-brown font-medium">{booking.time}</div>
                       </div>
                     </div>
                   </div>
                   
                   <div className="space-y-4">
-                    <div className="flex items-center space-x-4 p-5 bg-[rgba(255,138,101,0.1)] rounded-2xl border border-primary/20">
+                    <div className="flex items-center space-x-4 p-5 rounded-2xl border border-primary/30" style={{ backgroundColor: 'rgba(255,107,71,0.15)' }}>
                       <div className="w-12 h-12 cozy-gradient rounded-2xl flex items-center justify-center shadow-cozy">
                         <User className="w-6 h-6 text-white" />
                       </div>
                       <div>
-                        <div className="font-semibold text-muted">Name</div>
-                        <div className="text-sm text-muted/70 font-medium">{booking.name}</div>
+                        <div className="font-semibold text-warm-dark-brown">Name</div>
+                        <div className="text-sm text-warm-brown font-medium">{booking.name}</div>
                       </div>
                     </div>
                     
-                    <div className="flex items-center space-x-4 p-5 bg-[rgba(200,230,201,0.1)] rounded-2xl border border-green-200">
-                      <div className="w-12 h-12 bg-green-400 rounded-2xl flex items-center justify-center shadow-soft">
+                    <div className="flex items-center space-x-4 p-5 rounded-2xl border border-green-300/50" style={{ backgroundColor: 'rgba(143,188,143,0.15)' }}>
+                      <div className="w-12 h-12 bg-green-500 rounded-2xl flex items-center justify-center shadow-soft">
                         <Mail className="w-6 h-6 text-white" />
                       </div>
                       <div>
-                        <div className="font-semibold text-muted">Email</div>
-                        <div className="text-sm text-muted/70 font-medium">{booking.email}</div>
+                        <div className="font-semibold text-warm-dark-brown">Email</div>
+                        <div className="text-sm text-warm-brown font-medium">{booking.email}</div>
                       </div>
                     </div>
                   </div>
                 </div>
                 
                 {booking.message && (
-                  <div className="p-6 bg-gradient-to-r from-[rgba(255,248,243,0.8)] to-[rgba(255,239,230,0.8)] rounded-2xl border border-secondary/10">
-                    <div className="font-semibold mb-3 text-muted">Your Warm Message</div>
-                    <p className="text-sm text-muted/70 leading-relaxed font-medium italic">{booking.message}</p>
+                  <div className="p-6 rounded-2xl border border-secondary/20" style={{ background: 'linear-gradient(90deg, rgba(255,249,245,0.9) 0%, rgba(255,238,224,0.9) 100%)' }}>
+                    <div className="font-semibold mb-3 text-warm-dark-brown">Your Warm Message</div>
+                    <p className="text-sm text-warm-brown leading-relaxed font-medium italic">{booking.message}</p>
                   </div>
                 )}
 
@@ -191,9 +191,9 @@ const ConfirmationPage = () => {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 1 }}
-                    className="text-center p-4 bg-gradient-to-r from-accent/10 to-primary/10 rounded-2xl border border-accent/20"
+                    className="text-center p-4 rounded-2xl border border-accent/30" style={{ background: 'linear-gradient(90deg, rgba(255,182,193,0.15) 0%, rgba(255,107,71,0.15) 100%)' }}
                   >
-                    <p className="text-sm text-muted/80 font-medium">
+                    <p className="text-sm text-warm-brown font-medium">
                       📧 A cozy confirmation email is on its way to you
                     </p>
                   </motion.div>
@@ -208,7 +208,7 @@ const ConfirmationPage = () => {
                     <Button
                       variant="outline"
                       onClick={() => navigate('/')}
-                      className="flex-1 border-2 border-secondary/60 text-secondary hover:bg-secondary hover:text-white py-4 rounded-2xl transition-all duration-300 font-medium shadow-soft"
+                      className="flex-1 border-2 border-secondary text-warm-brown hover:bg-secondary hover:text-white py-4 rounded-2xl transition-all duration-300 font-medium shadow-soft"
                     >
                       Return to Warmth
                     </Button>
