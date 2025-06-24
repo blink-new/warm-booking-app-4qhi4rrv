@@ -1,0 +1,114 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Warm organic color palette */
+    --warm-cream: #FDF7F0;
+    --warm-terracotta: #E07A5F;
+    --warm-sage: #81B29A;
+    --warm-brown: #3D405B;
+    --warm-light-brown: #F2CC8F;
+    --warm-soft-green: #A8DADC;
+    
+    /* Existing ShadCN variables with warm overrides */
+    --background: 253 247 240; /* warm-cream */
+    --foreground: 61 64 91; /* warm-brown */
+    --card: 253 247 240;
+    --card-foreground: 61 64 91;
+    --popover: 253 247 240;
+    --popover-foreground: 61 64 91;
+    --primary: 224 112 95; /* warm-terracotta */
+    --primary-foreground: 253 247 240;
+    --secondary: 129 178 154; /* warm-sage */
+    --secondary-foreground: 61 64 91;
+    --muted: 242 204 143; /* warm-light-brown */
+    --muted-foreground: 61 64 91;
+    --accent: 168 218 220; /* warm-soft-green */
+    --accent-foreground: 61 64 91;
+    --destructive: 239 68 68;
+    --destructive-foreground: 253 247 240;
+    --border: 242 204 143;
+    --input: 242 204 143;
+    --ring: 224 112 95;
+    --radius: 1rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-sans;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+@layer components {
+  .organic-blob {
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+    animation: organic-morph 8s ease-in-out infinite;
+  }
+  
+  .organic-blob-alt {
+    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+    animation: organic-morph-alt 12s ease-in-out infinite;
+  }
+  
+  .warm-gradient {
+    background: linear-gradient(135deg, #FDF7F0 0%, #F2CC8F 50%, #E07A5F 100%);
+  }
+  
+  .sage-gradient {
+    background: linear-gradient(135deg, #A8DADC 0%, #81B29A 100%);
+  }
+}
+
+@keyframes organic-morph {
+  0%, 100% {
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+    transform: rotate(0deg);
+  }
+  50% {
+    border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+    transform: rotate(5deg);
+  }
+}
+
+@keyframes organic-morph-alt {
+  0%, 100% {
+    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+    transform: rotate(0deg);
+  }
+  33% {
+    border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%;
+    transform: rotate(-3deg);
+  }
+  66% {
+    border-radius: 40% 60% 60% 40% / 60% 40% 60% 40%;
+    transform: rotate(3deg);
+  }
+}
+
+@keyframes gentle-float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.gentle-float {
+  animation: gentle-float 4s ease-in-out infinite;
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, #E07A5F 0%, #81B29A 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
