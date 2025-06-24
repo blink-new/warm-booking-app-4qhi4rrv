@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Calendar, Clock, CheckCircle2, ArrowRight, Leaf, Heart } from 'lucide-react';
+import { Calendar, Clock, CheckCircle2, ArrowRight, Coffee, Heart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 
@@ -12,43 +12,44 @@ const LandingPage = () => {
   const features = [
     {
       icon: Calendar,
-      title: "Seamless Scheduling",
-      description: "Pick your perfect time with our intuitive calendar interface"
+      title: "Cozy Scheduling",
+      description: "Pick your perfect time in a warm, welcoming interface that feels like home"
     },
     {
       icon: Clock,
-      title: "Smart Time Management", 
-      description: "Automatically sync with your availability and preferences"
+      title: "Gentle Time Flow", 
+      description: "Seamlessly sync with your natural rhythm and favorite moments"
     },
     {
       icon: CheckCircle2,
-      title: "Instant Confirmation",
-      description: "Get immediate confirmation with calendar invites"
+      title: "Instant Comfort",
+      description: "Get peaceful confirmation with a touch of warmth in every detail"
     }
   ];
 
   return (
-    <div className="min-h-screen overflow-hidden">
-      {/* Organic Background Elements */}
+    <div className="min-h-screen overflow-hidden bg-gradient-to-br from-[#FFF8F3] via-[#FFEFE6] to-[#FFF0E6]">
+      {/* Warm Cozy Background Elements */}
       <div className="fixed inset-0 -z-10">
-        <div className="absolute top-20 right-20 w-64 h-64 warm-gradient organic-blob opacity-20"></div>
-        <div className="absolute bottom-20 left-20 w-80 h-80 sage-gradient organic-blob-alt opacity-15"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-accent/10 organic-blob opacity-10"></div>
+        <div className="absolute top-20 right-20 w-64 h-64 cozy-gradient organic-blob opacity-40 gentle-float"></div>
+        <div className="absolute bottom-20 left-20 w-80 h-80 peach-gradient organic-blob-alt opacity-35"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 soft-gradient organic-blob opacity-25"></div>
+        <div className="absolute top-10 left-10 w-32 h-32 autumn-gradient organic-blob opacity-30"></div>
       </div>
 
       {/* Header */}
       <header className="relative z-10 px-6 py-8">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
           <motion.div 
-            className="flex items-center space-x-2"
+            className="flex items-center space-x-3"
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <div className="w-10 h-10 warm-gradient rounded-full flex items-center justify-center">
-              <Leaf className="w-5 h-5 text-white" />
+            <div className="w-12 h-12 cozy-gradient rounded-2xl flex items-center justify-center shadow-cozy cozy-glow">
+              <Coffee className="w-6 h-6 text-white" />
             </div>
-            <span className="text-xl font-semibold text-gradient">WarmBook</span>
+            <span className="text-2xl font-serif font-semibold text-gradient">WarmBook</span>
           </motion.div>
           
           <motion.div
@@ -58,10 +59,10 @@ const LandingPage = () => {
           >
             <Button 
               variant="outline" 
-              className="border-primary/20 hover:bg-primary/5 transition-all duration-300"
+              className="border-2 border-primary/60 text-primary hover:bg-primary hover:text-white transition-all duration-300 font-medium rounded-2xl px-6 py-2.5 shadow-soft"
               onClick={() => navigate('/book')}
             >
-              Get Started
+              Get Cozy
             </Button>
           </motion.div>
         </div>
@@ -76,25 +77,25 @@ const LandingPage = () => {
             transition={{ duration: 0.8 }}
             className="space-y-8"
           >
-            <div className="space-y-4">
+            <div className="space-y-6">
               <motion.div
                 initial={{ scale: 0.8, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ duration: 0.6, delay: 0.3 }}
-                className="inline-flex items-center space-x-2 bg-[rgba(224,122,95,0.1)] px-4 py-2 rounded-full text-sm font-medium text-primary"
+                className="inline-flex items-center space-x-3 bg-[rgba(248,187,217,0.2)] px-6 py-3 rounded-full text-sm font-medium text-muted border border-accent/30 shadow-soft"
               >
-                <Heart className="w-4 h-4" />
-                <span>Made with care for busy people</span>
+                <Heart className="w-4 h-4 text-accent" />
+                <span>Crafted with love for meaningful connections</span>
               </motion.div>
               
-              <h1 className="text-5xl md:text-7xl font-bold leading-tight">
-                <span className="text-gradient">Booking</span>
+              <h1 className="text-6xl md:text-8xl font-serif font-semibold leading-tight">
+                <span className="text-gradient">Warm</span>
                 <br />
-                <span className="text-foreground">Made Simple</span>
+                <span className="text-muted">Booking</span>
               </h1>
               
-              <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-                Experience the warmth of seamless scheduling. Our organic approach to appointment booking makes connecting effortless and delightful.
+              <p className="text-xl md:text-2xl text-muted/80 max-w-3xl mx-auto leading-relaxed font-medium">
+                Step into a world where scheduling feels as comfortable as your favorite sweater. Every appointment becomes a gentle moment of connection.
               </p>
             </div>
 
@@ -106,13 +107,13 @@ const LandingPage = () => {
             >
               <Button
                 size="lg"
-                className="warm-gradient text-white px-8 py-6 text-lg rounded-2xl hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                className="cozy-gradient text-white px-10 py-6 text-lg rounded-3xl hover:shadow-2xl shadow-cozy transition-all duration-300 transform hover:scale-105 font-medium cozy-glow"
                 onClick={() => navigate('/book')}
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
               >
-                <span className="flex items-center space-x-2">
-                  <span>Book Your Time</span>
+                <span className="flex items-center space-x-3">
+                  <span>Book Your Moment</span>
                   <motion.div
                     animate={{ x: isHovered ? 5 : 0 }}
                     transition={{ duration: 0.2 }}
@@ -125,9 +126,9 @@ const LandingPage = () => {
               <Button
                 variant="outline"
                 size="lg"
-                className="px-8 py-6 text-lg rounded-2xl border-2 border-primary/20 hover:border-primary/40 hover:bg-primary/5 transition-all duration-300"
+                className="px-10 py-6 text-lg rounded-3xl border-2 border-secondary/60 text-secondary hover:bg-secondary hover:text-white transition-all duration-300 font-medium shadow-warm"
               >
-                Watch Demo
+                Feel the Warmth
               </Button>
             </motion.div>
           </motion.div>
@@ -144,11 +145,11 @@ const LandingPage = () => {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            <h2 className="text-4xl md:text-5xl font-serif font-semibold mb-6">
               Why Choose <span className="text-gradient">WarmBook</span>?
             </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Built with intention, designed for connection. Every feature crafted to make scheduling feel natural and stress-free.
+            <p className="text-xl text-muted/80 max-w-2xl mx-auto font-medium leading-relaxed">
+              Every feature designed with care, every interaction filled with warmth. This is scheduling that feels like a warm hug.
             </p>
           </motion.div>
 
@@ -160,18 +161,18 @@ const LandingPage = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.2 }}
                 viewport={{ once: true }}
-                whileHover={{ y: -5 }}
+                whileHover={{ y: -8, scale: 1.02 }}
                 className="group"
               >
-                <Card className="h-full border-0 shadow-lg bg-card/50 backdrop-blur-sm hover:shadow-xl transition-all duration-300">
-                  <CardContent className="p-8 text-center space-y-4">
-                    <div className="w-16 h-16 mx-auto warm-gradient rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                      <feature.icon className="w-8 h-8 text-white" />
+                <Card className="h-full border-0 shadow-warm bg-white/80 backdrop-blur-sm hover:shadow-2xl hover:bg-white/90 transition-all duration-300 rounded-3xl overflow-hidden">
+                  <CardContent className="p-8 text-center space-y-6">
+                    <div className="w-20 h-20 mx-auto cozy-gradient rounded-3xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-cozy cozy-glow">
+                      <feature.icon className="w-9 h-9 text-white" />
                     </div>
-                    <h3 className="text-xl font-semibold text-foreground">
+                    <h3 className="text-xl font-serif font-semibold text-muted">
                       {feature.title}
                     </h3>
-                    <p className="text-muted-foreground leading-relaxed">
+                    <p className="text-muted/70 leading-relaxed font-medium">
                       {feature.description}
                     </p>
                   </CardContent>
@@ -190,21 +191,21 @@ const LandingPage = () => {
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="bg-[linear-gradient(to_right,rgba(224,122,95,0.1)_0%,rgba(168,218,220,0.1)_50%,rgba(129,178,154,0.1)_100%)] rounded-3xl p-12 backdrop-blur-sm border border-primary/10"
+            className="autumn-gradient rounded-[2rem] p-12 backdrop-blur-sm border-2 border-accent/20 shadow-warm cozy-glow"
           >
-            <div className="space-y-6">
-              <h2 className="text-3xl md:text-4xl font-bold">
-                Ready to Transform Your Scheduling?
+            <div className="space-y-8">
+              <h2 className="text-4xl md:text-5xl font-serif font-semibold text-white">
+                Ready for Cozy Scheduling?
               </h2>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                Join thousands who've discovered the joy of effortless appointment booking. Your time is precious – let's make every moment count.
+              <p className="text-xl text-white/90 max-w-2xl mx-auto font-medium leading-relaxed">
+                Join our warm community where every booking feels personal, every moment matters, and scheduling becomes a delightful ritual.
               </p>
               <Button
                 size="lg"
-                className="warm-gradient text-white px-10 py-6 text-lg rounded-2xl hover:shadow-xl transition-all duration-300 transform hover:scale-105 gentle-float"
+                className="bg-white text-primary px-12 py-6 text-lg rounded-3xl hover:shadow-2xl shadow-lg transition-all duration-300 transform hover:scale-105 gentle-float font-medium hover:bg-[#FFF8F3]"
                 onClick={() => navigate('/book')}
               >
-                Start Booking Now
+                Start Your Journey
               </Button>
             </div>
           </motion.div>

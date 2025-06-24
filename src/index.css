@@ -1,39 +1,42 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Crimson+Text:wght@400;600&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
-    /* Warm organic color palette */
-    --warm-cream: #FDF7F0;
-    --warm-terracotta: #E07A5F;
-    --warm-sage: #81B29A;
-    --warm-brown: #3D405B;
-    --warm-light-brown: #F2CC8F;
-    --warm-soft-green: #A8DADC;
+    /* Warm, cozy, fuzzy color palette - like autumn comfort */
+    --warm-cream: #FFF8F3;
+    --warm-peach: #FFB894;
+    --warm-orange: #FF8A65;
+    --warm-brown: #8D6E63;
+    --warm-deep-brown: #5D4037;
+    --warm-soft-pink: #F8BBD9;
+    --warm-lavender: #E1BEE7;
+    --warm-sage: #C8E6C9;
+    --warm-gold: #FFD54F;
     
-    /* Existing ShadCN variables with warm overrides */
-    --background: 253 247 240; /* warm-cream */
-    --foreground: 61 64 91; /* warm-brown */
-    --card: 253 247 240;
-    --card-foreground: 61 64 91;
-    --popover: 253 247 240;
-    --popover-foreground: 61 64 91;
-    --primary: 224 112 95; /* warm-terracotta */
-    --primary-foreground: 253 247 240;
-    --secondary: 129 178 154; /* warm-sage */
-    --secondary-foreground: 61 64 91;
-    --muted: 242 204 143; /* warm-light-brown */
-    --muted-foreground: 61 64 91;
-    --accent: 168 218 220; /* warm-soft-green */
-    --accent-foreground: 61 64 91;
-    --destructive: 239 68 68;
-    --destructive-foreground: 253 247 240;
-    --border: 242 204 143;
-    --input: 242 204 143;
-    --ring: 224 112 95;
-    --radius: 1rem;
+    /* Cozy ShadCN variables */
+    --background: 255 248 243; /* warm cream */
+    --foreground: 93 64 55; /* warm deep brown */
+    --card: 255 255 255;
+    --card-foreground: 93 64 55;
+    --popover: 255 255 255;
+    --popover-foreground: 93 64 55;
+    --primary: 255 138 101; /* warm orange */
+    --primary-foreground: 255 248 243;
+    --secondary: 255 184 148; /* warm peach */
+    --secondary-foreground: 93 64 55;
+    --muted: 141 110 99; /* warm brown */
+    --muted-foreground: 255 248 243;
+    --accent: 248 187 217; /* warm soft pink */
+    --accent-foreground: 93 64 55;
+    --destructive: 239 83 80;
+    --destructive-foreground: 255 248 243;
+    --border: 255 184 148;
+    --input: 255 248 243;
+    --ring: 255 138 101;
+    --radius: 1.2rem;
   }
 }
 
@@ -58,12 +61,24 @@
     animation: organic-morph-alt 12s ease-in-out infinite;
   }
   
-  .warm-gradient {
-    background: linear-gradient(135deg, #FDF7F0 0%, #F2CC8F 50%, #E07A5F 100%);
+  .cozy-gradient {
+    background: linear-gradient(135deg, #FFB894 0%, #FF8A65 50%, #F8BBD9 100%);
   }
   
-  .sage-gradient {
-    background: linear-gradient(135deg, #A8DADC 0%, #81B29A 100%);
+  .peach-gradient {
+    background: linear-gradient(135deg, #FFF8F3 0%, #FFB894 100%);
+  }
+  
+  .warm-gradient {
+    background: linear-gradient(135deg, #FF8A65 0%, #FFB894 100%);
+  }
+  
+  .autumn-gradient {
+    background: linear-gradient(135deg, #FFD54F 0%, #FF8A65 50%, #F8BBD9 100%);
+  }
+  
+  .soft-gradient {
+    background: linear-gradient(135deg, #F8BBD9 0%, #E1BEE7 50%, #C8E6C9 100%);
   }
 }
 
@@ -102,13 +117,38 @@
   }
 }
 
+@keyframes cozy-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(255, 138, 101, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(255, 138, 101, 0.5);
+  }
+}
+
 .gentle-float {
   animation: gentle-float 4s ease-in-out infinite;
 }
 
+.cozy-glow {
+  animation: cozy-glow 3s ease-in-out infinite;
+}
+
 .text-gradient {
-  background: linear-gradient(135deg, #E07A5F 0%, #81B29A 100%);
+  background: linear-gradient(135deg, #FF8A65 0%, #F8BBD9 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+}
+
+.shadow-cozy {
+  box-shadow: 0 10px 25px -3px rgba(255, 138, 101, 0.3), 0 4px 6px -2px rgba(255, 138, 101, 0.15);
+}
+
+.shadow-soft {
+  box-shadow: 0 10px 25px -3px rgba(248, 187, 217, 0.3), 0 4px 6px -2px rgba(248, 187, 217, 0.15);
+}
+
+.shadow-warm {
+  box-shadow: 0 15px 35px -5px rgba(255, 184, 148, 0.4), 0 5px 15px -3px rgba(255, 184, 148, 0.2);
 }

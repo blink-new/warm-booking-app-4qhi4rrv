@@ -1,18 +1,17 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { CheckCircle2, Calendar, Clock, User, Mail, Home, Download, Leaf } from 'lucide-react';
 import { format } from 'date-fns';
+import { CheckCircle2, Calendar, Clock, User, Mail, Home, Coffee, Heart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
+import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 
 interface BookingData {
   date: string;
   time: string;
   name: string;
   email: string;
-  message: string;
+  message?: string;
 }
 
 const ConfirmationPage = () => {
@@ -21,46 +20,21 @@ const ConfirmationPage = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const bookingData = localStorage.getItem('booking');
-    if (bookingData) {
-      setBooking(JSON.parse(bookingData));
-    } else {
-      navigate('/');
+    const savedBooking = localStorage.getItem('booking');
+    if (savedBooking) {
+      setBooking(JSON.parse(savedBooking));
     }
     setIsLoading(false);
-  }, [navigate]);
+  }, []);
 
-  const handleDownloadCalendar = () => {
-    if (!booking) return;
-    
-    // Create a simple ICS file for demo
-    const startDate = new Date(booking.date);
-    const endDate = new Date(startDate.getTime() + 60 * 60 * 1000); // 1 hour later
-    
-    const icsContent = `BEGIN:VCALENDAR
-VERSION:2.0
-PRODID:-//WarmBook//EN
-BEGIN:VEVENT
-UID:${Date.now()}@warmbook.com
-DTSTAMP:${new Date().toISOString().replace(/[-:]/g, '').split('.')[0]}Z
-DTSTART:${startDate.toISOString().replace(/[-:]/g, '').split('.')[0]}Z
-DTEND:${endDate.toISOString().replace(/[-:]/g, '').split('.')[0]}Z
-SUMMARY:Appointment with WarmBook
-DESCRIPTION:${booking.message || 'Your appointment has been confirmed.'}
-LOCATION:Online
-END:VEVENT
-END:VCALENDAR`;
-
-    const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.download = 'warmbook-appointment.ics';
-    link.click();
+  const handleNewBooking = () => {
+    localStorage.removeItem('booking');
+    navigate('/book');
   };
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-[rgba(253,247,240,0.8)] flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-[#FFF8F3] via-[#FFEFE6] to-[#FFF0E6] flex items-center justify-center">
         <motion.div
           animate={{ rotate: 360 }}
           transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
@@ -75,190 +49,176 @@ END:VCALENDAR`;
   }
 
   return (
-    <div className="min-h-screen bg-[rgba(253,247,240,0.8)]">
-      {/* Organic Background */}
+    <div className="min-h-screen bg-gradient-to-br from-[#FFF8F3] via-[#FFEFE6] to-[#FFF0E6]">
+      {/* Cozy Background */}
       <div className="fixed inset-0 -z-10">
-        <div className="absolute top-1/4 right-1/4 w-64 h-64 sage-gradient organic-blob opacity-10 gentle-float"></div>
-        <div className="absolute bottom-1/4 left-1/4 w-80 h-80 warm-gradient organic-blob-alt opacity-15"></div>
+        <div className="absolute top-1/4 right-1/4 w-64 h-64 soft-gradient organic-blob opacity-20 gentle-float"></div>
+        <div className="absolute bottom-1/4 left-1/4 w-80 h-80 peach-gradient organic-blob-alt opacity-25"></div>
+        <div className="absolute top-10 left-10 w-40 h-40 cozy-gradient organic-blob opacity-30"></div>
       </div>
 
       {/* Header */}
-      <header className="relative z-10 px-6 py-6 border-b border-border/50">
-        <div className="max-w-4xl mx-auto flex items-center justify-between">
-          <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 warm-gradient rounded-full flex items-center justify-center">
-              <Leaf className="w-4 h-4 text-white" />
+      <header className="relative z-10 px-6 py-8">
+        <div className="max-w-6xl mx-auto flex items-center justify-between">
+          <motion.div 
+            className="flex items-center space-x-3"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <div className="w-10 h-10 cozy-gradient rounded-2xl flex items-center justify-center shadow-cozy">
+              <Coffee className="w-5 h-5 text-white" />
             </div>
-            <span className="font-semibold text-gradient">WarmBook</span>
-          </div>
+            <span className="text-xl font-serif font-semibold text-gradient">WarmBook</span>
+          </motion.div>
           
           <Button
             variant="outline"
-            className="flex items-center space-x-2 hover:bg-[rgba(224,112,95,0.05)]"
+            className="flex items-center space-x-2 hover:bg-[rgba(255,138,101,0.1)] border-primary/40 text-muted rounded-2xl shadow-soft"
             onClick={() => navigate('/')}
           >
             <Home className="w-4 h-4" />
-            <span>Back to Home</span>
+            <span>Back to Cozy Home</span>
           </Button>
         </div>
       </header>
 
-      <div className="max-w-4xl mx-auto px-6 py-12">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-center space-y-8"
-        >
+      {/* Main Content */}
+      <main className="relative z-10 px-6 pb-20">
+        <div className="max-w-4xl mx-auto">
           {/* Success Animation */}
           <motion.div
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ duration: 0.6, delay: 0.2, type: "spring", stiffness: 200 }}
-            className="flex justify-center"
+            initial={{ scale: 0, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.2, type: "spring", bounce: 0.4 }}
+            className="text-center mb-12"
           >
-            <div className="w-24 h-24 sage-gradient rounded-full flex items-center justify-center shadow-2xl">
+            <div className="inline-flex items-center justify-center w-24 h-24 cozy-gradient rounded-full mb-6 shadow-cozy cozy-glow">
               <CheckCircle2 className="w-12 h-12 text-white" />
             </div>
+            
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              className="text-4xl md:text-5xl font-serif font-semibold mb-4"
+            >
+              <span className="text-gradient">Your Cozy</span>{' '}
+              <span className="text-muted">Moment</span>{' '}
+              <span className="text-gradient">is Booked!</span>
+            </motion.h1>
+            
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.6 }}
+              className="flex items-center justify-center space-x-2 text-lg text-muted/80 font-medium"
+            >
+              <Heart className="w-5 h-5 text-accent" />
+              <span>We can't wait to connect with you warmly</span>
+            </motion.div>
           </motion.div>
 
-          {/* Success Message */}
+          {/* Booking Details */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="space-y-4"
-          >
-            <h1 className="text-4xl md:text-5xl font-bold">
-              <span className="text-gradient">Booking Confirmed!</span>
-            </h1>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Your appointment has been successfully scheduled. We've sent a confirmation email with all the details.
-            </p>
-          </motion.div>
-
-          {/* Booking Details Card */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.6 }}
             className="max-w-2xl mx-auto"
           >
-            <Card className="border-0 shadow-2xl bg-[rgba(253,247,240,0.8)] backdrop-blur-sm">
-              <CardHeader className="pb-6">
-                <CardTitle className="text-2xl text-center">Appointment Details</CardTitle>
+            <Card className="border-0 shadow-warm bg-white/80 backdrop-blur-sm rounded-3xl overflow-hidden">
+              <CardHeader className="pb-6 bg-gradient-to-r from-accent/10 to-secondary/10">
+                <CardTitle className="text-2xl text-center font-serif text-muted">Your Cozy Details</CardTitle>
               </CardHeader>
-              <CardContent className="space-y-6">
+              <CardContent className="space-y-6 p-8">
                 <div className="grid md:grid-cols-2 gap-6">
                   <div className="space-y-4">
-                    <div className="flex items-center space-x-3 p-4 bg-[rgba(224,122,95,0.05)] rounded-xl">
-                      <Calendar className="w-5 h-5 text-primary" />
+                    <div className="flex items-center space-x-4 p-5 bg-[rgba(255,184,148,0.1)] rounded-2xl border border-secondary/20">
+                      <div className="w-12 h-12 peach-gradient rounded-2xl flex items-center justify-center shadow-soft">
+                        <Calendar className="w-6 h-6 text-white" />
+                      </div>
                       <div>
-                        <div className="font-medium">Date</div>
-                        <div className="text-sm text-muted-foreground">
+                        <div className="font-semibold text-muted">Date</div>
+                        <div className="text-sm text-muted/70 font-medium">
                           {format(new Date(booking.date), 'EEEE, MMMM d, yyyy')}
                         </div>
                       </div>
                     </div>
                     
-                    <div className="flex items-center space-x-3 p-4 bg-[rgba(129,178,154,0.05)] rounded-xl">
-                      <Clock className="w-5 h-5 text-secondary" />
+                    <div className="flex items-center space-x-4 p-5 bg-[rgba(248,187,217,0.1)] rounded-2xl border border-accent/20">
+                      <div className="w-12 h-12 soft-gradient rounded-2xl flex items-center justify-center shadow-soft">
+                        <Clock className="w-6 h-6 text-white" />
+                      </div>
                       <div>
-                        <div className="font-medium">Time</div>
-                        <div className="text-sm text-muted-foreground">{booking.time}</div>
+                        <div className="font-semibold text-muted">Time</div>
+                        <div className="text-sm text-muted/70 font-medium">{booking.time}</div>
                       </div>
                     </div>
                   </div>
                   
                   <div className="space-y-4">
-                    <div className="flex items-center space-x-3 p-4 bg-[rgba(168,218,220,0.05)] rounded-xl">
-                      <User className="w-5 h-5 text-accent" />
+                    <div className="flex items-center space-x-4 p-5 bg-[rgba(255,138,101,0.1)] rounded-2xl border border-primary/20">
+                      <div className="w-12 h-12 cozy-gradient rounded-2xl flex items-center justify-center shadow-cozy">
+                        <User className="w-6 h-6 text-white" />
+                      </div>
                       <div>
-                        <div className="font-medium">Name</div>
-                        <div className="text-sm text-muted-foreground">{booking.name}</div>
+                        <div className="font-semibold text-muted">Name</div>
+                        <div className="text-sm text-muted/70 font-medium">{booking.name}</div>
                       </div>
                     </div>
                     
-                    <div className="flex items-center space-x-3 p-4 bg-[rgba(242,204,143,0.05)] rounded-xl">
-                      <Mail className="w-5 h-5 text-muted-foreground" />
+                    <div className="flex items-center space-x-4 p-5 bg-[rgba(200,230,201,0.1)] rounded-2xl border border-green-200">
+                      <div className="w-12 h-12 bg-green-400 rounded-2xl flex items-center justify-center shadow-soft">
+                        <Mail className="w-6 h-6 text-white" />
+                      </div>
                       <div>
-                        <div className="font-medium">Email</div>
-                        <div className="text-sm text-muted-foreground">{booking.email}</div>
+                        <div className="font-semibold text-muted">Email</div>
+                        <div className="text-sm text-muted/70 font-medium">{booking.email}</div>
                       </div>
                     </div>
                   </div>
                 </div>
                 
                 {booking.message && (
-                  <div className="p-4 bg-[rgba(253,247,240,0.5)] rounded-xl border border-primary/10">
-                    <div className="font-medium mb-2">Your Message</div>
-                    <p className="text-sm text-muted-foreground">{booking.message}</p>
+                  <div className="p-6 bg-gradient-to-r from-[rgba(255,248,243,0.8)] to-[rgba(255,239,230,0.8)] rounded-2xl border border-secondary/10">
+                    <div className="font-semibold mb-3 text-muted">Your Warm Message</div>
+                    <p className="text-sm text-muted/70 leading-relaxed font-medium italic">{booking.message}</p>
                   </div>
                 )}
-                
-                <div className="flex flex-wrap gap-2 justify-center pt-4">
-                  <Badge variant="secondary" className="px-3 py-1">
-                    ✅ Confirmed
-                  </Badge>
-                  <Badge variant="outline" className="px-3 py-1">
-                    📧 Email Sent
-                  </Badge>
-                  <Badge variant="outline" className="px-3 py-1">
-                    🔔 Reminder Set
-                  </Badge>
+
+                <div className="pt-6 space-y-4">
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 1 }}
+                    className="text-center p-4 bg-gradient-to-r from-accent/10 to-primary/10 rounded-2xl border border-accent/20"
+                  >
+                    <p className="text-sm text-muted/80 font-medium">
+                      📧 A cozy confirmation email is on its way to you
+                    </p>
+                  </motion.div>
+
+                  <div className="flex flex-col sm:flex-row gap-3">
+                    <Button
+                      onClick={handleNewBooking}
+                      className="flex-1 cozy-gradient text-white py-4 rounded-2xl shadow-cozy hover:shadow-2xl transition-all duration-300 font-medium"
+                    >
+                      Book Another Cozy Moment
+                    </Button>
+                    <Button
+                      variant="outline"
+                      onClick={() => navigate('/')}
+                      className="flex-1 border-2 border-secondary/60 text-secondary hover:bg-secondary hover:text-white py-4 rounded-2xl transition-all duration-300 font-medium shadow-soft"
+                    >
+                      Return to Warmth
+                    </Button>
+                  </div>
                 </div>
               </CardContent>
             </Card>
           </motion.div>
-
-          {/* Action Buttons */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.8 }}
-            className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-8"
-          >
-            <Button
-              onClick={handleDownloadCalendar}
-              size="lg"
-              className="warm-gradient text-white px-8 py-6 text-lg rounded-2xl hover:shadow-xl transition-all duration-300 transform hover:scale-105"
-            >
-              <Download className="w-5 h-5 mr-2" />
-              Add to Calendar
-            </Button>
-            
-            <Button
-              variant="outline"
-              size="lg"
-              onClick={() => navigate('/book')}
-              className="px-8 py-6 text-lg rounded-2xl border-2 border-primary/20 hover:border-primary/40 hover:bg-primary/5 transition-all duration-300"
-            >
-              Book Another Appointment
-            </Button>
-          </motion.div>
-
-          {/* Contact Info */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 1 }}
-            className="pt-12 text-center"
-          >
-            <p className="text-muted-foreground mb-4">
-              Need to make changes or have questions?
-            </p>
-            <div className="flex items-center justify-center space-x-6 text-sm">
-              <a href="mailto:hello@warmbook.com" className="text-primary hover:underline">
-                hello@warmbook.com
-              </a>
-              <span className="text-muted-foreground">•</span>
-              <a href="tel:+1234567890" className="text-primary hover:underline">
-                (123) 456-7890
-              </a>
-            </div>
-          </motion.div>
-        </motion.div>
-      </div>
+        </div>
+      </main>
     </div>
   );
 };

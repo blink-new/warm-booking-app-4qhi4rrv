@@ -1,363 +1,298 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, Calendar, Clock, User, Mail, MessageSquare, Leaf } from 'lucide-react';
-import { format, addDays, startOfWeek, addWeeks, isToday } from 'date-fns';
+import { motion } from 'framer-motion';
+import { format, startOfMonth, endOfMonth, eachDayOfInterval, isToday, isSameDay, addMonths, subMonths } from 'date-fns';
+import { ChevronLeft, ChevronRight, Clock, User, Mail, MessageSquare, Home, Coffee } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { Badge } from '@/components/ui/badge';
-
-interface TimeSlot {
-  time: string;
-  available: boolean;
-}
-
-interface BookingForm {
-  name: string;
-  email: string;
-  message: string;
-}
 
 const BookingPage = () => {
   const navigate = useNavigate();
+  const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-  const [selectedTime, setSelectedTime] = useState<string | null>(null);
-  const [currentWeek, setCurrentWeek] = useState(startOfWeek(new Date()));
-  const [step, setStep] = useState<'date' | 'time' | 'details'>('date');
-  const [form, setForm] = useState<BookingForm>({ name: '', email: '', message: '' });
+  const [selectedTime, setSelectedTime] = useState('');
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: ''
+  });
 
-  // Generate time slots
-  const timeSlots: TimeSlot[] = [
-    { time: '9:00 AM', available: true },
-    { time: '9:30 AM', available: false },
-    { time: '10:00 AM', available: true },
-    { time: '10:30 AM', available: true },
-    { time: '11:00 AM', available: false },
-    { time: '11:30 AM', available: true },
-    { time: '2:00 PM', available: true },
-    { time: '2:30 PM', available: true },
-    { time: '3:00 PM', available: false },
-    { time: '3:30 PM', available: true },
-    { time: '4:00 PM', available: true },
-    { time: '4:30 PM', available: true },
+  const availableTimes = [
+    '9:00 AM', '10:00 AM', '11:00 AM', '2:00 PM', '3:00 PM', '4:00 PM'
   ];
 
-  // Generate week days
-  const weekDays = Array.from({ length: 7 }, (_, i) => addDays(currentWeek, i));
+  const monthStart = startOfMonth(currentDate);
+  const monthEnd = endOfMonth(currentDate);
+  const days = eachDayOfInterval({ start: monthStart, end: monthEnd });
 
   const handleDateSelect = (date: Date) => {
     setSelectedDate(date);
-    setStep('time');
+    setSelectedTime('');
   };
 
-  const handleTimeSelect = (time: string) => {
-    setSelectedTime(time);
-    setStep('details');
-  };
-
-  const handleFormSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!selectedDate || !selectedTime || !form.name || !form.email) return;
-    
-    // Store booking data in localStorage for demo
-    localStorage.setItem('booking', JSON.stringify({
-      date: selectedDate,
-      time: selectedTime,
-      ...form
-    }));
-    
-    navigate('/confirmation');
+    if (selectedDate && selectedTime && formData.name && formData.email) {
+      const booking = {
+        date: selectedDate.toISOString(),
+        time: selectedTime,
+        ...formData
+      };
+      localStorage.setItem('booking', JSON.stringify(booking));
+      navigate('/confirmed');
+    }
   };
 
-  const handleInputChange = (field: keyof BookingForm, value: string) => {
-    setForm(prev => ({ ...prev, [field]: value }));
-  };
-
-  const goToPreviousWeek = () => setCurrentWeek(addWeeks(currentWeek, -1));
-  const goToNextWeek = () => setCurrentWeek(addWeeks(currentWeek, 1));
+  const isFormValid = selectedDate && selectedTime && formData.name && formData.email;
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Organic Background */}
+    <div className="min-h-screen bg-gradient-to-br from-[#FFF8F3] via-[#FFEFE6] to-[#FFF0E6]">
+      {/* Cozy Background */}
       <div className="fixed inset-0 -z-10">
-        <div className="absolute top-10 right-10 w-48 h-48 sage-gradient organic-blob opacity-15"></div>
-        <div className="absolute bottom-10 left-10 w-64 h-64 warm-gradient organic-blob-alt opacity-10"></div>
+        <div className="absolute top-1/4 right-1/4 w-64 h-64 peach-gradient organic-blob opacity-25 gentle-float"></div>
+        <div className="absolute bottom-1/4 left-1/4 w-80 h-80 soft-gradient organic-blob-alt opacity-20"></div>
+        <div className="absolute top-10 right-10 w-40 h-40 cozy-gradient organic-blob opacity-30"></div>
       </div>
 
       {/* Header */}
-      <header className="relative z-10 px-6 py-6 border-b border-border/50">
-        <div className="max-w-4xl mx-auto flex items-center justify-between">
+      <header className="relative z-10 px-6 py-8">
+        <div className="max-w-6xl mx-auto flex items-center justify-between">
+          <motion.div 
+            className="flex items-center space-x-3"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <div className="w-10 h-10 cozy-gradient rounded-2xl flex items-center justify-center shadow-cozy">
+              <Coffee className="w-5 h-5 text-white" />
+            </div>
+            <span className="text-xl font-serif font-semibold text-gradient">WarmBook</span>
+          </motion.div>
+          
           <Button
-            variant="ghost"
-            className="flex items-center space-x-2 hover:bg-[rgba(224,112,95,0.05)]"
+            variant="outline"
+            className="flex items-center space-x-2 hover:bg-[rgba(255,138,101,0.1)] border-primary/40 text-muted rounded-2xl shadow-soft"
             onClick={() => navigate('/')}
           >
-            <ArrowLeft className="w-4 h-4" />
-            <span>Back to Home</span>
+            <Home className="w-4 h-4" />
+            <span>Back to Cozy Home</span>
           </Button>
-          
-          <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 warm-gradient rounded-full flex items-center justify-center">
-              <Leaf className="w-4 h-4 text-white" />
-            </div>
-            <span className="font-semibold text-gradient">WarmBook</span>
-          </div>
         </div>
       </header>
 
-      <div className="max-w-4xl mx-auto px-6 py-12">
-        {/* Progress Indicator */}
-        <div className="mb-12">
-          <div className="flex items-center justify-center space-x-4 mb-8">
-            {['date', 'time', 'details'].map((stepName, index) => (
-              <div key={stepName} className="flex items-center">
-                <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
-                  step === stepName ? 'warm-gradient text-white shadow-lg' :
-                  ['date', 'time', 'details'].indexOf(step) > index ? 'bg-primary text-white' :
-                  'bg-muted text-muted-foreground'
-                }`}>
-                  {stepName === 'date' && <Calendar className="w-4 h-4" />}
-                  {stepName === 'time' && <Clock className="w-4 h-4" />}
-                  {stepName === 'details' && <User className="w-4 h-4" />}
-                </div>
-                {index < 2 && (
-                  <div className={`w-16 h-1 mx-4 rounded transition-all duration-300 ${
-                    ['date', 'time', 'details'].indexOf(step) > index ? 'bg-primary' : 'bg-muted'
-                  }`} />
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
+      {/* Main Content */}
+      <main className="relative z-10 px-6 pb-20">
+        <div className="max-w-6xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-center mb-12"
+          >
+            <h1 className="text-4xl md:text-5xl font-serif font-semibold mb-4">
+              <span className="text-gradient">Book Your</span>{' '}
+              <span className="text-muted">Cozy Moment</span>
+            </h1>
+            <p className="text-lg text-muted/80 max-w-2xl mx-auto font-medium">
+              Choose a time that feels right for you. Every appointment is a chance to connect warmly.
+            </p>
+          </motion.div>
 
-        <AnimatePresence mode="wait">
-          {/* Date Selection */}
-          {step === 'date' && (
+          <div className="grid lg:grid-cols-2 gap-12">
+            {/* Calendar Section */}
             <motion.div
-              key="date"
-              initial={{ opacity: 0, x: 20 }}
+              initial={{ opacity: 0, x: -30 }}
               animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -20 }}
-              transition={{ duration: 0.3 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
             >
-              <Card className="border-0 shadow-xl bg-[rgba(253,247,240,0.8)] backdrop-blur-sm">
-                <CardHeader className="text-center pb-8">
-                  <CardTitle className="text-2xl font-bold">Select a Date</CardTitle>
-                  <p className="text-muted-foreground">Choose your preferred day for the appointment</p>
-                </CardHeader>
-                <CardContent className="space-y-6">
-                  {/* Week Navigation */}
-                  <div className="flex items-center justify-between mb-6">
-                    <Button
-                      variant="outline"
-                      onClick={goToPreviousWeek}
-                      className="hover:bg-[rgba(224,112,95,0.05)]"
-                    >
-                      ← Previous Week
-                    </Button>
-                    <div className="text-lg font-semibold">
-                      {format(currentWeek, 'MMMM yyyy')}
+              <Card className="border-0 shadow-warm bg-white/80 backdrop-blur-sm rounded-3xl overflow-hidden">
+                <CardHeader className="pb-6">
+                  <div className="flex items-center justify-between">
+                    <CardTitle className="text-2xl font-serif text-muted">
+                      {format(currentDate, 'MMMM yyyy')}
+                    </CardTitle>
+                    <div className="flex space-x-2">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => setCurrentDate(subMonths(currentDate, 1))}
+                        className="border-secondary/40 text-secondary hover:bg-secondary/10 rounded-xl"
+                      >
+                        <ChevronLeft className="w-4 h-4" />
+                      </Button>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => setCurrentDate(addMonths(currentDate, 1))}
+                        className="border-secondary/40 text-secondary hover:bg-secondary/10 rounded-xl"
+                      >
+                        <ChevronRight className="w-4 h-4" />
+                      </Button>
                     </div>
-                    <Button
-                      variant="outline"
-                      onClick={goToNextWeek}
-                      className="hover:bg-[rgba(224,112,95,0.05)]"
-                    >
-                      Next Week →
-                    </Button>
                   </div>
-
-                  {/* Calendar Grid */}
-                  <div className="grid grid-cols-7 gap-3">
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-7 gap-2 mb-4">
                     {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
-                      <div key={day} className="text-center text-sm font-medium text-muted-foreground p-2">
+                      <div key={day} className="text-center text-sm font-medium text-muted/60 py-2">
                         {day}
                       </div>
                     ))}
-                    
-                    {weekDays.map((date, index) => {
-                      const isPast = date < new Date(new Date().setHours(0, 0, 0, 0));
-                      const isWeekend = date.getDay() === 0 || date.getDay() === 6;
-                      
-                      return (
-                        <motion.button
-                          key={index}
-                          whileHover={!isPast && !isWeekend ? { scale: 1.05 } : {}}
-                          whileTap={!isPast && !isWeekend ? { scale: 0.95 } : {}}
-                          onClick={() => !isPast && !isWeekend && handleDateSelect(date)}
-                          disabled={isPast || isWeekend}
-                          className={`
-                            p-4 rounded-xl text-center transition-all duration-200 relative
-                            ${isPast || isWeekend ? 
-                              'text-muted-foreground cursor-not-allowed opacity-40' :
-                              'text-foreground hover:bg-[rgba(224,112,95,0.1)] hover:shadow-md cursor-pointer'
-                            }
-                            ${isToday(date) ? 'ring-2 ring-primary/50' : ''}
-                          `}
-                        >
-                          <div className="text-lg font-medium">{format(date, 'd')}</div>
-                          <div className="text-xs text-muted-foreground mt-1">
-                            {isWeekend ? 'Closed' : isPast ? '' : 'Available'}
-                          </div>
-                          {isToday(date) && (
-                            <div className="absolute -top-1 -right-1 w-3 h-3 warm-gradient rounded-full"></div>
-                          )}
-                        </motion.button>
-                      );
-                    })}
                   </div>
-                </CardContent>
-              </Card>
-            </motion.div>
-          )}
-
-          {/* Time Selection */}
-          {step === 'time' && selectedDate && (
-            <motion.div
-              key="time"
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -20 }}
-              transition={{ duration: 0.3 }}
-            >
-              <Card className="border-0 shadow-xl bg-[rgba(253,247,240,0.8)] backdrop-blur-sm">
-                <CardHeader className="text-center pb-8">
-                  <CardTitle className="text-2xl font-bold">Select a Time</CardTitle>
-                  <p className="text-muted-foreground">
-                    Available slots for {format(selectedDate, 'EEEE, MMMM d, yyyy')}
-                  </p>
-                  <Button
-                    variant="ghost"
-                    onClick={() => setStep('date')}
-                    className="text-primary hover:bg-[rgba(224,112,95,0.05)] mt-2"
-                  >
-                    ← Change Date
-                  </Button>
-                </CardHeader>
-                <CardContent>
-                  <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                    {timeSlots.map((slot, index) => (
+                  <div className="grid grid-cols-7 gap-2">
+                    {days.map(day => (
                       <motion.button
-                        key={index}
-                        whileHover={slot.available ? { scale: 1.02 } : {}}
-                        whileTap={slot.available ? { scale: 0.98 } : {}}
-                        onClick={() => slot.available && handleTimeSelect(slot.time)}
-                        disabled={!slot.available}
+                        key={day.toISOString()}
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        onClick={() => handleDateSelect(day)}
                         className={`
-                          p-4 rounded-xl border-2 transition-all duration-200 text-center
-                          ${slot.available ?
-                            'border-border hover:border-primary hover:bg-[rgba(224,112,95,0.05)] cursor-pointer' :
-                            'border-muted bg-muted cursor-not-allowed opacity-50'
+                          p-3 text-sm rounded-2xl transition-all duration-200 font-medium
+                          ${isToday(day) 
+                            ? 'bg-primary text-white shadow-cozy cozy-glow' 
+                            : selectedDate && isSameDay(day, selectedDate)
+                            ? 'bg-accent text-white shadow-soft'
+                            : 'hover:bg-secondary/20 text-muted hover:scale-105'
                           }
                         `}
                       >
-                        <div className="font-medium">{slot.time}</div>
-                        <Badge
-                          variant={slot.available ? "secondary" : "destructive"}
-                          className="mt-2 text-xs"
-                        >
-                          {slot.available ? 'Available' : 'Booked'}
-                        </Badge>
+                        {format(day, 'd')}
                       </motion.button>
                     ))}
                   </div>
                 </CardContent>
               </Card>
             </motion.div>
-          )}
 
-          {/* Details Form */}
-          {step === 'details' && selectedDate && selectedTime && (
+            {/* Booking Form */}
             <motion.div
-              key="details"
-              initial={{ opacity: 0, x: 20 }}
+              initial={{ opacity: 0, x: 30 }}
               animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -20 }}
-              transition={{ duration: 0.3 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="space-y-6"
             >
-              <Card className="border-0 shadow-xl bg-[rgba(253,247,240,0.8)] backdrop-blur-sm">
-                <CardHeader className="text-center pb-8">
-                  <CardTitle className="text-2xl font-bold">Your Details</CardTitle>
-                  <p className="text-muted-foreground">
-                    Confirm your appointment for {format(selectedDate, 'EEEE, MMMM d')} at {selectedTime}
-                  </p>
-                  <Button
-                    variant="ghost"
-                    onClick={() => setStep('time')}
-                    className="text-primary hover:bg-[rgba(224,112,95,0.05)] mt-2"
-                  >
-                    ← Change Time
-                  </Button>
-                </CardHeader>
-                <CardContent>
-                  <form onSubmit={handleFormSubmit} className="space-y-6">
-                    <div className="grid md:grid-cols-2 gap-6">
-                      <div className="space-y-2">
-                        <Label htmlFor="name" className="flex items-center space-x-2">
-                          <User className="w-4 h-4" />
-                          <span>Full Name *</span>
-                        </Label>
-                        <Input
-                          id="name"
-                          value={form.name}
-                          onChange={(e) => handleInputChange('name', e.target.value)}
-                          placeholder="Enter your full name"
-                          required
-                          className="border-2 focus:border-primary"
-                        />
+              {/* Time Selection */}
+              {selectedDate && (
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6 }}
+                >
+                  <Card className="border-0 shadow-warm bg-white/80 backdrop-blur-sm rounded-3xl">
+                    <CardHeader>
+                      <CardTitle className="flex items-center space-x-2 text-muted font-serif">
+                        <Clock className="w-5 h-5 text-primary" />
+                        <span>Available Times</span>
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="grid grid-cols-2 gap-3">
+                        {availableTimes.map(time => (
+                          <motion.button
+                            key={time}
+                            whileHover={{ scale: 1.03 }}
+                            whileTap={{ scale: 0.97 }}
+                            onClick={() => setSelectedTime(time)}
+                            className={`
+                              p-4 rounded-2xl transition-all duration-200 font-medium
+                              ${selectedTime === time
+                                ? 'cozy-gradient text-white shadow-cozy'
+                                : 'bg-secondary/10 text-muted hover:bg-secondary/20 border border-secondary/20'
+                              }
+                            `}
+                          >
+                            {time}
+                          </motion.button>
+                        ))}
                       </div>
-                      
-                      <div className="space-y-2">
-                        <Label htmlFor="email" className="flex items-center space-x-2">
-                          <Mail className="w-4 h-4" />
-                          <span>Email Address *</span>
-                        </Label>
-                        <Input
-                          id="email"
-                          type="email"
-                          value={form.email}
-                          onChange={(e) => handleInputChange('email', e.target.value)}
-                          placeholder="Enter your email"
-                          required
-                          className="border-2 focus:border-primary"
-                        />
-                      </div>
-                    </div>
-                    
-                    <div className="space-y-2">
-                      <Label htmlFor="message" className="flex items-center space-x-2">
-                        <MessageSquare className="w-4 h-4" />
-                        <span>Message (Optional)</span>
-                      </Label>
-                      <Textarea
-                        id="message"
-                        value={form.message}
-                        onChange={(e) => handleInputChange('message', e.target.value)}
-                        placeholder="Tell us about your requirements or any special requests..."
-                        rows={4}
-                        className="border-2 focus:border-primary resize-none"
-                      />
-                    </div>
-                    
-                    <div className="pt-6">
-                      <Button
-                        type="submit"
-                        size="lg"
-                        className="w-full warm-gradient text-white py-6 text-lg rounded-xl hover:shadow-xl transition-all duration-300 transform hover:scale-105"
-                      >
-                        Confirm Booking
-                      </Button>
-                    </div>
-                  </form>
-                </CardContent>
-              </Card>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              )}
+
+              {/* Contact Form */}
+              {selectedTime && (
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6 }}
+                >
+                  <Card className="border-0 shadow-warm bg-white/80 backdrop-blur-sm rounded-3xl">
+                    <CardHeader>
+                      <CardTitle className="flex items-center space-x-2 text-muted font-serif">
+                        <User className="w-5 h-5 text-primary" />
+                        <span>Your Cozy Details</span>
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <form onSubmit={handleSubmit} className="space-y-6">
+                        <div className="space-y-2">
+                          <Label htmlFor="name" className="text-muted font-medium">Full Name</Label>
+                          <Input
+                            id="name"
+                            value={formData.name}
+                            onChange={(e) => setFormData({...formData, name: e.target.value})}
+                            placeholder="Your wonderful name"
+                            className="rounded-2xl border-secondary/30 focus:border-primary bg-white/80 py-3"
+                            required
+                          />
+                        </div>
+                        
+                        <div className="space-y-2">
+                          <Label htmlFor="email" className="text-muted font-medium flex items-center space-x-2">
+                            <Mail className="w-4 h-4" />
+                            <span>Email Address</span>
+                          </Label>
+                          <Input
+                            id="email"
+                            type="email"
+                            value={formData.email}
+                            onChange={(e) => setFormData({...formData, email: e.target.value})}
+                            placeholder="your@email.com"
+                            className="rounded-2xl border-secondary/30 focus:border-primary bg-white/80 py-3"
+                            required
+                          />
+                        </div>
+                        
+                        <div className="space-y-2">
+                          <Label htmlFor="message" className="text-muted font-medium flex items-center space-x-2">
+                            <MessageSquare className="w-4 h-4" />
+                            <span>Warm Message (Optional)</span>
+                          </Label>
+                          <Textarea
+                            id="message"
+                            value={formData.message}
+                            onChange={(e) => setFormData({...formData, message: e.target.value})}
+                            placeholder="Share what brings you joy or what you'd like to discuss..."
+                            className="rounded-2xl border-secondary/30 focus:border-primary bg-white/80 min-h-[100px]"
+                          />
+                        </div>
+
+                        <Button
+                          type="submit"
+                          disabled={!isFormValid}
+                          className={`
+                            w-full py-6 text-lg rounded-3xl font-medium transition-all duration-300
+                            ${isFormValid
+                              ? 'cozy-gradient text-white shadow-cozy hover:shadow-2xl transform hover:scale-[1.02] cozy-glow'
+                              : 'bg-muted/20 text-muted/50 cursor-not-allowed'
+                            }
+                          `}
+                        >
+                          Confirm Your Cozy Appointment
+                        </Button>
+                      </form>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              )}
             </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
+          </div>
+        </div>
+      </main>
     </div>
   );
 };
