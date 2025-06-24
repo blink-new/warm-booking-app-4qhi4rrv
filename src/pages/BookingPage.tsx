@@ -92,7 +92,7 @@ const BookingPage = () => {
         <div className="max-w-4xl mx-auto flex items-center justify-between">
           <Button
             variant="ghost"
-            className="flex items-center space-x-2 hover:bg-primary/5"
+            className="flex items-center space-x-2 hover:bg-[rgba(224,112,95,0.05)]"
             onClick={() => navigate('/')}
           >
             <ArrowLeft className="w-4 h-4" />
@@ -143,7 +143,7 @@ const BookingPage = () => {
               exit={{ opacity: 0, x: -20 }}
               transition={{ duration: 0.3 }}
             >
-              <Card className="border-0 shadow-xl bg-card/80 backdrop-blur-sm">
+              <Card className="border-0 shadow-xl bg-[rgba(253,247,240,0.8)] backdrop-blur-sm">
                 <CardHeader className="text-center pb-8">
                   <CardTitle className="text-2xl font-bold">Select a Date</CardTitle>
                   <p className="text-muted-foreground">Choose your preferred day for the appointment</p>
@@ -154,7 +154,7 @@ const BookingPage = () => {
                     <Button
                       variant="outline"
                       onClick={goToPreviousWeek}
-                      className="hover:bg-primary/5"
+                      className="hover:bg-[rgba(224,112,95,0.05)]"
                     >
                       ← Previous Week
                     </Button>
@@ -164,7 +164,7 @@ const BookingPage = () => {
                     <Button
                       variant="outline"
                       onClick={goToNextWeek}
-                      className="hover:bg-primary/5"
+                      className="hover:bg-[rgba(224,112,95,0.05)]"
                     >
                       Next Week →
                     </Button>
@@ -193,7 +193,7 @@ const BookingPage = () => {
                             p-4 rounded-xl text-center transition-all duration-200 relative
                             ${isPast || isWeekend ? 
                               'text-muted-foreground cursor-not-allowed opacity-40' :
-                              'text-foreground hover:bg-primary/10 hover:shadow-md cursor-pointer'
+                              'text-foreground hover:bg-[rgba(224,112,95,0.1)] hover:shadow-md cursor-pointer'
                             }
                             ${isToday(date) ? 'ring-2 ring-primary/50' : ''}
                           `}
@@ -223,7 +223,7 @@ const BookingPage = () => {
               exit={{ opacity: 0, x: -20 }}
               transition={{ duration: 0.3 }}
             >
-              <Card className="border-0 shadow-xl bg-card/80 backdrop-blur-sm">
+              <Card className="border-0 shadow-xl bg-[rgba(253,247,240,0.8)] backdrop-blur-sm">
                 <CardHeader className="text-center pb-8">
                   <CardTitle className="text-2xl font-bold">Select a Time</CardTitle>
                   <p className="text-muted-foreground">
@@ -232,7 +232,7 @@ const BookingPage = () => {
                   <Button
                     variant="ghost"
                     onClick={() => setStep('date')}
-                    className="text-primary hover:bg-primary/5 mt-2"
+                    className="text-primary hover:bg-[rgba(224,112,95,0.05)] mt-2"
                   >
                     ← Change Date
                   </Button>
@@ -249,7 +249,7 @@ const BookingPage = () => {
                         className={`
                           p-4 rounded-xl border-2 transition-all duration-200 text-center
                           ${slot.available ?
-                            'border-border hover:border-primary hover:bg-primary/5 cursor-pointer' :
+                            'border-border hover:border-primary hover:bg-[rgba(224,112,95,0.05)] cursor-pointer' :
                             'border-muted bg-muted cursor-not-allowed opacity-50'
                           }
                         `}
@@ -278,7 +278,7 @@ const BookingPage = () => {
               exit={{ opacity: 0, x: -20 }}
               transition={{ duration: 0.3 }}
             >
-              <Card className="border-0 shadow-xl bg-card/80 backdrop-blur-sm">
+              <Card className="border-0 shadow-xl bg-[rgba(253,247,240,0.8)] backdrop-blur-sm">
                 <CardHeader className="text-center pb-8">
                   <CardTitle className="text-2xl font-bold">Your Details</CardTitle>
                   <p className="text-muted-foreground">
@@ -287,7 +287,7 @@ const BookingPage = () => {
                   <Button
                     variant="ghost"
                     onClick={() => setStep('time')}
-                    className="text-primary hover:bg-primary/5 mt-2"
+                    className="text-primary hover:bg-[rgba(224,112,95,0.05)] mt-2"
                   >
                     ← Change Time
                   </Button>

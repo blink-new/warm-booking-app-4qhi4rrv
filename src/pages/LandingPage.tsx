@@ -81,7 +81,7 @@ const LandingPage = () => {
                 initial={{ scale: 0.8, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ duration: 0.6, delay: 0.3 }}
-                className="inline-flex items-center space-x-2 bg-primary/10 px-4 py-2 rounded-full text-sm font-medium text-primary"
+                className="inline-flex items-center space-x-2 bg-[rgba(224,122,95,0.1)] px-4 py-2 rounded-full text-sm font-medium text-primary"
               >
                 <Heart className="w-4 h-4" />
                 <span>Made with care for busy people</span>
@@ -190,7 +190,7 @@ const LandingPage = () => {
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="bg-gradient-to-r from-primary/10 via-accent/10 to-secondary/10 rounded-3xl p-12 backdrop-blur-sm border border-primary/10"
+            className="bg-[linear-gradient(to_right,rgba(224,122,95,0.1)_0%,rgba(168,218,220,0.1)_50%,rgba(129,178,154,0.1)_100%)] rounded-3xl p-12 backdrop-blur-sm border border-primary/10"
           >
             <div className="space-y-6">
               <h2 className="text-3xl md:text-4xl font-bold">

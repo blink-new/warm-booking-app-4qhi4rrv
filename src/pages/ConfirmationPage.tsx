@@ -60,7 +60,7 @@ END:VCALENDAR`;
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
+      <div className="min-h-screen bg-[rgba(253,247,240,0.8)] flex items-center justify-center">
         <motion.div
           animate={{ rotate: 360 }}
           transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
@@ -75,7 +75,7 @@ END:VCALENDAR`;
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-[rgba(253,247,240,0.8)]">
       {/* Organic Background */}
       <div className="fixed inset-0 -z-10">
         <div className="absolute top-1/4 right-1/4 w-64 h-64 sage-gradient organic-blob opacity-10 gentle-float"></div>
@@ -94,7 +94,7 @@ END:VCALENDAR`;
           
           <Button
             variant="outline"
-            className="flex items-center space-x-2 hover:bg-primary/5"
+            className="flex items-center space-x-2 hover:bg-[rgba(224,112,95,0.05)]"
             onClick={() => navigate('/')}
           >
             <Home className="w-4 h-4" />
@@ -144,14 +144,14 @@ END:VCALENDAR`;
             transition={{ duration: 0.6, delay: 0.6 }}
             className="max-w-2xl mx-auto"
           >
-            <Card className="border-0 shadow-2xl bg-card/80 backdrop-blur-sm">
+            <Card className="border-0 shadow-2xl bg-[rgba(253,247,240,0.8)] backdrop-blur-sm">
               <CardHeader className="pb-6">
                 <CardTitle className="text-2xl text-center">Appointment Details</CardTitle>
               </CardHeader>
               <CardContent className="space-y-6">
                 <div className="grid md:grid-cols-2 gap-6">
                   <div className="space-y-4">
-                    <div className="flex items-center space-x-3 p-4 bg-primary/5 rounded-xl">
+                    <div className="flex items-center space-x-3 p-4 bg-[rgba(224,122,95,0.05)] rounded-xl">
                       <Calendar className="w-5 h-5 text-primary" />
                       <div>
                         <div className="font-medium">Date</div>
@@ -161,7 +161,7 @@ END:VCALENDAR`;
                       </div>
                     </div>
                     
-                    <div className="flex items-center space-x-3 p-4 bg-secondary/5 rounded-xl">
+                    <div className="flex items-center space-x-3 p-4 bg-[rgba(129,178,154,0.05)] rounded-xl">
                       <Clock className="w-5 h-5 text-secondary" />
                       <div>
                         <div className="font-medium">Time</div>
@@ -171,7 +171,7 @@ END:VCALENDAR`;
                   </div>
                   
                   <div className="space-y-4">
-                    <div className="flex items-center space-x-3 p-4 bg-accent/5 rounded-xl">
+                    <div className="flex items-center space-x-3 p-4 bg-[rgba(168,218,220,0.05)] rounded-xl">
                       <User className="w-5 h-5 text-accent" />
                       <div>
                         <div className="font-medium">Name</div>
@@ -179,7 +179,7 @@ END:VCALENDAR`;
                       </div>
                     </div>
                     
-                    <div className="flex items-center space-x-3 p-4 bg-muted/5 rounded-xl">
+                    <div className="flex items-center space-x-3 p-4 bg-[rgba(242,204,143,0.05)] rounded-xl">
                       <Mail className="w-5 h-5 text-muted-foreground" />
                       <div>
                         <div className="font-medium">Email</div>
@@ -190,7 +190,7 @@ END:VCALENDAR`;
                 </div>
                 
                 {booking.message && (
-                  <div className="p-4 bg-warm-cream/50 rounded-xl border border-primary/10">
+                  <div className="p-4 bg-[rgba(253,247,240,0.5)] rounded-xl border border-primary/10">
                     <div className="font-medium mb-2">Your Message</div>
                     <p className="text-sm text-muted-foreground">{booking.message}</p>
                   </div>
